@@ -1,34 +1,45 @@
-let boardArray = ["", "", "", "", "", "", "", "", ""];
-const grid = document.querySelector("#grid");
-
 const game = (() => {
-  let currentSymbol = "o";
+  let boardArray = ["", "", "", "", "", "", "", "", ""];
   let round = 0;
-  const renderBoard = () => {
+  let currentSymbol = "o";
+
+  // cache DOM
+  const grid = document.querySelector("#grid");
+  const currentPlayer = document.querySelector("#current-symbol");
+
+  // bind events
+
+  const bindEventsSymbol = () => {
+    const markBtn = document.querySelectorAll(".symbol");
+    markBtn.forEach((e) => e.addEventListener("click", playRound));
+  };
+
+  const render = () => {
     for (i = 0; i < boardArray.length; i++) {
       const div = document.createElement("div");
       div.classList.add("symbol");
       div.dataset.index = i;
       div.innerText = boardArray[i];
       grid.appendChild(div);
+
+      bindEventsSymbol();
+      showSymbol();
     }
   };
 
-  const addListeners = () => {
-    const markBtn = document.querySelectorAll(".symbol");
-
-    markBtn.forEach((e) => e.addEventListener("click", playRound));
+  const getIndex = (e) => {
+    let index = e.target.getAttribute("data-index");
+    return index;
   };
 
   const playRound = (e) => {
-    let index = e.target.getAttribute("data-index");
+    index = getIndex(e);
 
     if (validate(index)) {
       boardArray[index] = currentSymbol;
       changeSymbol();
       clearBoard();
-      renderBoard();
-      addListeners();
+      render();
       round++;
       gameOver();
     } else {
@@ -43,6 +54,10 @@ const game = (() => {
       currentSymbol = "o";
     }
   };
+
+  const showSymbol = () => {
+    currentPlayer.innerText = currentSymbol;
+  };
   const clearBoard = () => {
     grid.innerHTML = "";
   };
@@ -52,6 +67,7 @@ const game = (() => {
     if (winningCondition()) {
       changeSymbol();
       console.log(currentSymbol + " is a winner");
+      
     }
     if (round == 9) {
       console.log("Tie");
@@ -90,10 +106,8 @@ const game = (() => {
   };
 
   return {
-    renderBoard,
-    addListeners,
+    render,
   };
 })();
 
-game.renderBoard();
-game.addListeners();
+game.render();

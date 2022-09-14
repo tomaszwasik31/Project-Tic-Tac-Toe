@@ -1,37 +1,150 @@
+/* font */
+@import url("https://fonts.googleapis.com/css2?family=Grape+Nuts&display=swap");
+
+/* colors */
+:root {
+  --background: #fff;
+  --blue: #abced4;
+  --main: #41403e;
+}
 body {
-  background-color: bisque;
   margin: 0;
   padding: 0;
+  font-family: "Grape Nuts", cursive;
+  color: var(--main);
+}
+/* source: https://codepen.io/emzarts/pen/RRBjER */
+.paper-bg {
+  background-color: var(--background);
+  background-image: linear-gradient(
+      90deg,
+      transparent 79px,
+      var(--blue) 79px,
+      var(--blue) 81px,
+      transparent 81px
+    ),
+    linear-gradient(#eee 0.1em, transparent 0.1em);
+  background-size: 100% 6.6rem;
 }
 
 #main {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  padding-top: 7.5rem;
   height: 100vh;
-}
-
-#grid-wrapper {
-  width: 300px;
-  height: 300px;
-  background-color: aliceblue;
+  gap: 2rem;
 }
 
 #grid {
-  width: 100%;
-  height: 100%;
-  background-color: red;
+  width: 20rem;
+  height: 20rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-
-  font-size: 5rem;
 }
 
 .symbol {
-  width: 100%;
-  height: 100%;
   text-align: center;
   border: solid 1px;
+  font-size: 5rem;
+  padding: 0;
+}
+
+#display-controller {
+  font-size: 3rem;
+}
+#form-wrapper {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#form {
+  background-color: var(--background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  width: 22rem;
+
+  padding: 2rem;
+  border: var(--blue) 0.2rem solid;
+}
+
+.player-input {
+  height: 3rem;
+  font-size: 3rem;
+  padding: 1rem;
+  display: flex;
+
+  align-items: center;
+}
+
+#form label {
+  padding: 1rem;
+  font-size: 4rem;
+  padding-bottom: 2rem;
+}
+
+.player-input input {
+  font-size: 1rem;
+  border: var(--blue) 2px solid;
+  padding: 0.5rem;
+}
+
+#form h2 {
+  font-size: 3rem;
+}
+
+/* btn from https://www.getpapercss.com/docs/components/buttons/*/
+.btn {
+  align-self: center;
+  background-color: #fff;
+  background-image: none;
+  background-position: 0 90%;
+  background-repeat: repeat no-repeat;
+  background-size: 4px 3px;
+  border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
+  border-style: solid;
+  border-width: 2px;
+  box-shadow: rgba(0, 0, 0, 0.2) 15px 28px 25px -18px;
   box-sizing: border-box;
+  color: var(--main);
+  cursor: pointer;
+  display: inline-block;
+
+  font-size: 1rem;
+  line-height: 23px;
+  outline: none;
+  padding: 0.75rem;
+  text-decoration: none;
+  transition: all 235ms ease-in-out;
+  border-bottom-left-radius: 15px 255px;
+  border-bottom-right-radius: 225px 15px;
+  border-top-left-radius: 255px 15px;
+  border-top-right-radius: 15px 225px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.btn:hover {
+  box-shadow: rgba(0, 0, 0, 0.3) 2px 8px 8px -5px;
+  transform: translate3d(0, 2px, 0);
+}
+
+.btn:focus {
+  box-shadow: rgba(0, 0, 0, 0.3) 2px 8px 4px -6px;
+}
+
+.fancy-border {
+  border-bottom-left-radius: 15px 255px;
+  border-bottom-right-radius: 225px 15px;
+  border-top-left-radius: 255px 15px;
+  border-top-right-radius: 15px 225px;
 }
