@@ -5,8 +5,8 @@ const playersForm = (() => {
   const player2Input = document.querySelector("[name='player2']");
 
   const getNames = () => {
-    let player1= player1Input.value;
-    let player2= player2Input.value;
+    let player1 = player1Input.value;
+    let player2 = player2Input.value;
   };
   const hideForm = () => {
     formWrapper.classList.add("hidden");
@@ -20,11 +20,6 @@ const playersForm = (() => {
   };
 
   startBtn.addEventListener("click", startGame);
-
-  return {
-    player1,
-    player2,
-  };
 })();
 
 const game = (() => {
