@@ -1,10 +1,12 @@
 const playersForm = (() => {
   const startBtn = document.querySelector("#start-btn");
   const formWrapper = document.querySelector("#form-wrapper");
+  const player1Input = document.querySelector("[name='player1']");
+  const player2Input = document.querySelector("[name='player2']");
 
   const getNames = () => {
-    let player1 = document.querySelector("[name='player1']");
-    let player2 = document.querySelector("[name='player2']");
+    let player1= player1Input.value;
+    let player2= player2Input.value;
   };
   const hideForm = () => {
     formWrapper.classList.add("hidden");
