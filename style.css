@@ -64,6 +64,10 @@ body {
   justify-content: center;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 #form {
   background-color: var(--background);
   display: flex;
@@ -71,7 +75,6 @@ body {
   align-items: center;
   justify-items: center;
   width: 22rem;
-
   padding: 2rem;
   border: var(--blue) 0.2rem solid;
 }
@@ -147,4 +150,10 @@ body {
   border-bottom-right-radius: 225px 15px;
   border-top-left-radius: 255px 15px;
   border-top-right-radius: 15px 225px;
+}
+
+#turn-display {
+  font-size: 3rem;
+  max-width: 35rem;
+  text-align: center;
 }

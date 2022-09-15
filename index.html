@@ -11,26 +11,27 @@
   <body >
     <body class="paper-bg">
       <div id="form-wrapper">
-        <form id="form" class="fancy-border paper-bg">
+        <form id="form" class="fancy-border paper-bg" onsubmit="event.preventDefault();">
           <h2>Put players names</h2>
           <div class="player-input">
             <label for="player1">o</label>
-            <input type="text" id="player1" value="Player 1" class="fancy-border" />
+            <input type="text" id="player1" name="player1" value="Player 1" class="fancy-border" />
           </div>
           <div class="player-input">
             <label for="player2">x</label>
-            <input type="text" id="player2" value="Player 2" class="fancy-border" />
+            <input type="text" id="player2" name="player2" value="Player 2" class="fancy-border" />
           </div>
           <button class="btn" id="start-btn">Start a game</button>
         </form>
       </div>
     <main id="main">
-      <div id="display-controller">
-        Player <span id="current-symbol"></span> turn
+      <div id="turn-display">
+        <span id="current-symbol"></span>
       </div>
       <div id="grid-wrapper">
         <div id="grid"></div>
       </div>
+      <button class="btn" id="reset-btn">Reset game</button>
     </main>
   </body>
 </html>

@@ -1,19 +1,56 @@
+const playersForm = (() => {
+  const startBtn = document.querySelector("#start-btn");
+  const formWrapper = document.querySelector("#form-wrapper");
+
+  const getNames = () => {
+    let player1 = document.querySelector("[name='player1']");
+    let player2 = document.querySelector("[name='player2']");
+  };
+  const hideForm = () => {
+    formWrapper.classList.add("hidden");
+  };
+
+  const startGame = () => {
+    getNames();
+    hideForm();
+
+    game.render();
+  };
+
+  startBtn.addEventListener("click", startGame);
+
+  return {
+    player1,
+    player2,
+  };
+})();
+
 const game = (() => {
   let boardArray = ["", "", "", "", "", "", "", "", ""];
   let round = 0;
-  let currentSymbol = "o";
+  let currentSymbol = "O";
+  let currentPlayer = player1.value;
 
   // cache DOM
   const grid = document.querySelector("#grid");
-  const currentPlayer = document.querySelector("#current-symbol");
+  const turnDisplay = document.querySelector("#turn-display");
+  const resetBtn = document.querySelector("#reset-btn");
 
   // bind events
 
-  const bindEventsSymbol = () => {
+  const bindEvents = () => {
     const markBtn = document.querySelectorAll(".symbol");
     markBtn.forEach((e) => e.addEventListener("click", playRound));
+
+    resetBtn.addEventListener("click", resetGame);
   };
 
+  const resetGame = () => {
+    location.reload();
+    return false;
+  };
+
+  //render
   const render = () => {
     for (i = 0; i < boardArray.length; i++) {
       const div = document.createElement("div");
@@ -22,8 +59,8 @@ const game = (() => {
       div.innerText = boardArray[i];
       grid.appendChild(div);
 
-      bindEventsSymbol();
-      showSymbol();
+      bindEvents();
+      showPlayer();
     }
   };
 
@@ -37,7 +74,7 @@ const game = (() => {
 
     if (validate(index)) {
       boardArray[index] = currentSymbol;
-      changeSymbol();
+      changePlayer();
       clearBoard();
       render();
       round++;
@@ -47,16 +84,19 @@ const game = (() => {
     }
   };
 
-  const changeSymbol = () => {
-    if (currentSymbol == "o") {
-      currentSymbol = "x";
+  const changePlayer = () => {
+    if (currentSymbol == "O") {
+      currentPlayer = player2.value;
+      currentSymbol = "X";
     } else {
-      currentSymbol = "o";
+      currentSymbol = "O";
+      currentPlayer = player1.value;
     }
   };
 
-  const showSymbol = () => {
-    currentPlayer.innerText = currentSymbol;
+  const showPlayer = () => {
+    turnDisplay.innerText = `${currentPlayer} turn. 
+    Click to put your ${currentSymbol} mark`;
   };
   const clearBoard = () => {
     grid.innerHTML = "";
@@ -65,9 +105,8 @@ const game = (() => {
 
   const gameOver = () => {
     if (winningCondition()) {
-      changeSymbol();
+      changePlayer();
       console.log(currentSymbol + " is a winner");
-      
     }
     if (round == 9) {
       console.log("Tie");
@@ -109,5 +148,3 @@ const game = (() => {
     render,
   };
 })();
-
-game.render();
