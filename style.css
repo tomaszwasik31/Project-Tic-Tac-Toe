@@ -31,7 +31,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 7.5rem;
+  padding-top: 10.5rem;
   height: 100vh;
   gap: 2rem;
 }
@@ -54,8 +54,10 @@ body {
 #display-controller {
   font-size: 3rem;
 }
-#form-wrapper {
+#form-wrapper,
+#msg-wrapper {
   position: fixed;
+  top: 0;
   height: 100vh;
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.5);
@@ -64,11 +66,18 @@ body {
   justify-content: center;
 }
 
+
+
 .hidden {
   visibility: hidden;
 }
 
-#form {
+.visible {
+  visibility: visible;
+}
+
+#form,
+#msg {
   background-color: var(--background);
   display: flex;
   flex-direction: column;
@@ -77,8 +86,15 @@ body {
   width: 22rem;
   padding: 2rem;
   border: var(--blue) 0.2rem solid;
+  text-align: center;
 }
 
+
+
+
+.btn-wrapper {
+  padding-top: 2rem;
+}
 .player-input {
   height: 3rem;
   font-size: 3rem;
@@ -100,7 +116,7 @@ body {
   padding: 0.5rem;
 }
 
-#form h2 {
+.text {
   font-size: 3rem;
 }
 

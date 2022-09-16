@@ -1,21 +1,26 @@
+let currentPlayer;
+let player1;
+let player2;
+
 const playersForm = (() => {
   const startBtn = document.querySelector("#start-btn");
   const formWrapper = document.querySelector("#form-wrapper");
   const player1Input = document.querySelector("[name='player1']");
   const player2Input = document.querySelector("[name='player2']");
 
-  const getNames = () => {
-    let player1 = player1Input.value;
-    let player2 = player2Input.value;
-  };
   const hideForm = () => {
     formWrapper.classList.add("hidden");
+  };
+
+  const getNames = () => {
+    player1 = player1Input.value;
+    player2 = player2Input.value;
   };
 
   const startGame = () => {
     getNames();
     hideForm();
-
+    currentPlayer = player1;
     game.render();
   };
 
@@ -26,20 +31,22 @@ const game = (() => {
   let boardArray = ["", "", "", "", "", "", "", "", ""];
   let round = 0;
   let currentSymbol = "O";
-  let currentPlayer = player1.value;
 
   // cache DOM
   const grid = document.querySelector("#grid");
   const turnDisplay = document.querySelector("#turn-display");
-  const resetBtn = document.querySelector("#reset-btn");
-
+  const gameResult = document.querySelector("#game-result");
+  const msgWrapper = document.querySelector("#msg-wrapper");
+  const playAgainBtn = document.querySelector("#play-again-btn");
   // bind events
 
   const bindEvents = () => {
     const markBtn = document.querySelectorAll(".symbol");
+    const resetBtn = document.querySelectorAll("#reset-btn");
+    playAgainBtn.addEventListener("click", playAgain);
     markBtn.forEach((e) => e.addEventListener("click", playRound));
 
-    resetBtn.addEventListener("click", resetGame);
+    resetBtn.forEach((e) => e.addEventListener("click", resetGame));
   };
 
   const resetGame = () => {
@@ -83,11 +90,11 @@ const game = (() => {
 
   const changePlayer = () => {
     if (currentSymbol == "O") {
-      currentPlayer = player2.value;
+      currentPlayer = player2;
       currentSymbol = "X";
     } else {
       currentSymbol = "O";
-      currentPlayer = player1.value;
+      currentPlayer = player1;
     }
   };
 
@@ -100,13 +107,30 @@ const game = (() => {
   };
   const validate = (index) => (boardArray[index] == "" ? true : false);
 
+  const showMsg = () => {
+    msgWrapper.classList.replace("hidden", "visible");
+  };
+
+  const hideMsg = () => {
+    msgWrapper.classList.replace("visible", "hidden");
+  };
+  const playAgain = () => {
+    boardArray = ["", "", "", "", "", "", "", "", ""];
+    round = 0;
+    clearBoard();
+    hideMsg();
+    render();
+  };
   const gameOver = () => {
     if (winningCondition()) {
       changePlayer();
-      console.log(currentSymbol + " is a winner");
+      showMsg();
+      gameResult.innerText = `${currentPlayer} is a winner.`;
     }
     if (round == 9) {
-      console.log("Tie");
+      changePlayer();
+      showMsg();
+      gameResult.innerText = `Game Tie!.`;
     }
   };
 
