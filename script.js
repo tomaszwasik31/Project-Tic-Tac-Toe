@@ -3,6 +3,7 @@ let player1;
 let player2;
 
 const playersForm = (() => {
+  // cache DOM
   const startBtn = document.querySelector("#start-btn");
   const formWrapper = document.querySelector("#form-wrapper");
   const player1Input = document.querySelector("[name='player1']");
@@ -20,17 +21,27 @@ const playersForm = (() => {
   const startGame = () => {
     getNames();
     hideForm();
-    currentPlayer = player1;
+    game.startingValues();
     game.render();
   };
 
+  // bind event
   startBtn.addEventListener("click", startGame);
 })();
 
 const game = (() => {
-  let boardArray = ["", "", "", "", "", "", "", "", ""];
-  let round = 0;
-  let currentSymbol = "O";
+  let boardArray;
+  let round;
+  let currentSymbol;
+  let markBtn;
+  let resetBtn;
+
+  const startingValues = () => {
+    boardArray = ["", "", "", "", "", "", "", "", ""];
+    round = 0;
+    currentPlayer = player1;
+    currentSymbol = "O";
+  };
 
   // cache DOM
   const grid = document.querySelector("#grid");
@@ -38,23 +49,27 @@ const game = (() => {
   const gameResult = document.querySelector("#game-result");
   const msgWrapper = document.querySelector("#msg-wrapper");
   const playAgainBtn = document.querySelector("#play-again-btn");
-  // bind events
 
+  // cache multiple
+  const cacheDom = () => {
+    markBtn = document.querySelectorAll(".symbol");
+    resetBtn = document.querySelectorAll("#reset-btn");
+  };
+
+  // bind events
   const bindEvents = () => {
-    const markBtn = document.querySelectorAll(".symbol");
-    const resetBtn = document.querySelectorAll("#reset-btn");
     playAgainBtn.addEventListener("click", playAgain);
-    markBtn.forEach((e) => e.addEventListener("click", playRound));
+    markBtn.forEach((e) => e.addEventListener("click", playTurn));
 
     resetBtn.forEach((e) => e.addEventListener("click", resetGame));
   };
 
   const resetGame = () => {
+    //reload whole page
     location.reload();
     return false;
   };
 
-  //render
   const render = () => {
     for (i = 0; i < boardArray.length; i++) {
       const div = document.createElement("div");
@@ -62,7 +77,7 @@ const game = (() => {
       div.dataset.index = i;
       div.innerText = boardArray[i];
       grid.appendChild(div);
-
+      cacheDom();
       bindEvents();
       showPlayer();
     }
@@ -73,7 +88,7 @@ const game = (() => {
     return index;
   };
 
-  const playRound = (e) => {
+  const playTurn = (e) => {
     index = getIndex(e);
 
     if (validate(index)) {
@@ -89,7 +104,7 @@ const game = (() => {
   };
 
   const changePlayer = () => {
-    if (currentSymbol == "O") {
+    if (currentPlayer == player1) {
       currentPlayer = player2;
       currentSymbol = "X";
     } else {
@@ -115,8 +130,7 @@ const game = (() => {
     msgWrapper.classList.replace("visible", "hidden");
   };
   const playAgain = () => {
-    boardArray = ["", "", "", "", "", "", "", "", ""];
-    round = 0;
+    startingValues();
     clearBoard();
     hideMsg();
     render();
@@ -167,5 +181,6 @@ const game = (() => {
 
   return {
     render,
+    startingValues,
   };
 })();

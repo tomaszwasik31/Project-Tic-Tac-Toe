@@ -89,7 +89,10 @@ body {
   text-align: center;
 }
 
-
+#msg{
+  align-self: flex-start;
+  margin-top: 2rem;
+}
 
 
 .btn-wrapper {
