@@ -53,7 +53,7 @@ const game = (() => {
   // cache multiple
   const cacheDom = () => {
     markBtn = document.querySelectorAll(".symbol");
-    resetBtn = document.querySelectorAll("#reset-btn");
+    resetBtn = document.querySelectorAll(".reset-btn");
   };
 
   // bind events
